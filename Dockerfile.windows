@@ -1,0 +1,12 @@
+# escape=`
+FROM microsoft/nanoserver:10.0.14393.1593
+
+LABEL maintainer="Gregory Boddin" \
+  org.label-schema.name="Drone Github Status" \
+  org.label-schema.vendor="Gregory Boddin" \
+  org.label-schema.schema-version="1.0"
+
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+ADD release\github-status.exe c:\github-status.exe
+ENTRYPOINT [ "c:\\github-status.exe" ]
