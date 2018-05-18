@@ -43,6 +43,22 @@ Execute from the working directory:
 
 ```
 
+## Drone plugin
+
+### Simple context
+
+```yaml
+pipeline:
+  # Simple context
+  set-commit-status:
+    image: gboo/github-status
+    secrets: [ github_token ]
+    state: success
+    context: drone/subtest/functional-test
+```
+
+### Multi context
+
 From Drone in parent build :
 
 ```yaml
@@ -74,7 +90,7 @@ From Drone in child build :
     image: gboo/github-status
     secrets: [ github_token ]
     state: success
-    context: drone/subtest/{{ .FullName }}
+    context: drone/subtest/${DRONE_REPO}
     repo_owner: ${DRONE_PARENT_REPO_OWNER}
     repo_name: ${DRONE_PARENT_REPO_NAME}
     commit_id: ${DRONE_PARENT_COMMIT_HASH}
